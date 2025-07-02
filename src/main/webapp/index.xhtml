@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Analisador de Frases</title>
+</h:head>
+<h:body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;">
+
+    <h:form style="max-width: 800px; margin: auto;">
+        <p:panel header="📝 Digite sua frase" style="margin-bottom: 20px;" styleClass="ui-panel-primary">
+            <p:inputTextarea value="#{phraseBean.inputPhrase}" rows="4" cols="80"
+                             placeholder="Ex: O rato roeu a roupa do rei de Roma"
+                             autoResize="true"
+                             style="width: 100%; font-size: 1.1em;" />
+
+            <p:commandButton value="🔍 Analisar"
+                             action="#{phraseBean.analyze}"
+                             update="results"
+                             process="@form"
+                             style="margin-top: 10px;"
+                             icon="pi pi-search"
+                             styleClass="ui-button-success" />
+        </p:panel>
+
+        <p:panel header="📊 Resultado da Análise" id="results" styleClass="ui-panel-info">
+            <h:panelGroup rendered="#{not empty phraseBean.result}">
+                <h:outputText value="✅ Palavras distintas: #{phraseBean.distinctWordCount}"
+                              style="font-weight: bold; display: block; margin-bottom: 10px;" />
+
+                <p:dataTable var="entry" value="#{phraseBean.result.entrySet()}"
+                             responsiveLayout="scroll"
+                             styleClass="ui-datatable-striped"
+                             style="width: 100%;">
+
+                    <p:column headerText="📌 Palavra" style="text-align: left;">
+                        <h:outputText value="#{entry.key}" />
+                    </p:column>
+
+                    <p:column headerText="🔢 Ocorrências" style="text-align: center;">
+                        <h:outputText value="#{entry.value}" />
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{empty phraseBean.result}">
+                <h:outputText value="Nenhuma análise feita ainda. Digite uma frase acima e clique em 'Analisar'."
+                              style="color: gray; font-style: italic;" />
+            </h:panelGroup>
+        </p:panel>
+    </h:form>
+
+</h:body>
+</html>
