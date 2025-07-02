@@ -51,6 +51,7 @@ Frase Analisador é um sistema web desenvolvido para processar frases digitadas 
 - WildFly 10
 - h2 rodando
 - Driver JDBC (`h2-connector`) instalado como módulo no WildFly
+- Para facilitar o uso adicionado o wildfly para rodar a aplicação com todas dependencias necessarias.
 
 ---
 
