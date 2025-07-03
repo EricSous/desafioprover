@@ -11,7 +11,10 @@ public class PhraseAnalyzerService {
         Map<String, Integer> map = new HashMap<>();
 
         if (phrase != null && !phrase.trim().isEmpty()) {
-            String[] words = phrase.toLowerCase().split("\\W+");
+            // remove símbolos especiais, mas mantém acentos
+            String limpa = phrase.replaceAll("[^\\p{L}\\p{N}\\s]", "");
+            String[] words = limpa.toLowerCase().split("\\s+");
+
             for (String word : words) {
                 if (!word.isEmpty()) {
                     map.put(word, map.getOrDefault(word, 0) + 1);
